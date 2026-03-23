@@ -1,0 +1,281 @@
+import React, { useState, useEffect } from 'react';
+import { Power, ChevronDown, Lock, ShieldCheck, Mail, ArrowRight, Activity, Clock, Server } from 'lucide-react';
+
+
+// Custom Logo Component based on the PCV Hub / Stronghold design
+const StrongholdLogo = ({ className = "w-12 h-12" }) => (
+  <svg viewBox="0 0 100 100" className={className} fill="none" xmlns="http://www.w3.org/2000/svg">
+    {/* Outer Interconnected Hexagon (Teal/Navy representation) */}
+    <path d="M50 15 L80 32.5 L80 67.5 L50 85 L20 67.5 L20 32.5 Z" stroke="#0f766e" strokeWidth="6" strokeLinejoin="round"/>
+    <path d="M50 25 L70 37.5 L70 62.5 L50 75 L30 62.5 L30 37.5 Z" stroke="#1e3a8a" strokeWidth="4" strokeLinejoin="round"/>
+   
+    {/* Nodes / People heads */}
+    <circle cx="50" cy="15" r="5" fill="#0f766e"/>
+    <circle cx="80" cy="32.5" r="5" fill="#0f766e"/>
+    <circle cx="80" cy="67.5" r="5" fill="#1e3a8a"/>
+    <circle cx="50" cy="85" r="5" fill="#1e3a8a"/>
+    <circle cx="20" cy="67.5" r="5" fill="#1e3a8a"/>
+    <circle cx="20" cy="32.5" r="5" fill="#0f766e"/>
+
+
+    {/* Center Gold Shield */}
+    <path d="M38 40 L62 40 L62 52 C62 65 50 72 50 72 C50 72 38 65 38 52 Z" fill="#ca8a04" stroke="#eab308" strokeWidth="1.5" strokeLinejoin="round"/>
+  </svg>
+);
+
+
+export default function App() {
+  const [isVpnActive, setIsVpnActive] = useState(false);
+  const [placeholderText, setPlaceholderText] = useState("Initialize Privileged Comms. Vector... (AKA enter email)");
+
+
+  // Randomize the waitlist placeholder on page load
+  useEffect(() => {
+    const pcVibes = [
+      "Initialize Privileged Comms. Vector... (AKA enter email)",
+      "Connect Private Communications Vault... (enter email)",
+      "Establish Private Channel Value... (AKA email address)"
+    ];
+    const randomVibe = pcVibes[Math.floor(Math.random() * pcVibes.length)];
+    setPlaceholderText(randomVibe);
+  }, []);
+
+
+  return (
+    <div className="min-h-screen bg-[#020617] text-slate-300 font-sans overflow-x-hidden selection:bg-teal-500/30 flex flex-col relative">
+     
+      {/* Background ambient glow */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-[600px] bg-teal-900/10 blur-[120px] pointer-events-none z-0"></div>
+
+
+      {/* Header */}
+      <header className="w-full border-b border-slate-800/80 relative z-20 bg-[#020617]/80 backdrop-blur-md">
+        <div className="max-w-7xl mx-auto px-6 py-4 flex flex-col md:flex-row items-center justify-between gap-4">
+         
+          {/* Logo & Branding - Slightly scaled down */}
+          <div className="flex items-center gap-3">
+            <StrongholdLogo className="w-12 h-12 drop-shadow-lg" />
+            <div className="flex flex-col justify-center">
+              <h1 className="text-xl md:text-2xl font-bold text-white tracking-wide leading-none mb-1">
+                STRONGHOLD<span className="text-teal-500">VPN</span>
+              </h1>
+              <span className="text-[0.6rem] text-yellow-600/90 tracking-[0.25em] font-bold uppercase mb-0.5">
+                POWER • CONTROL • VIRTUE
+              </span>
+              <span className="text-[0.5rem] text-slate-500 tracking-wider uppercase">
+                A PCV Hub LLC Property
+              </span>
+            </div>
+          </div>
+
+
+          {/* Navigation */}
+          <nav className="flex items-center gap-8">
+            <div className="hidden md:flex items-center gap-6 text-xs font-bold tracking-widest text-slate-400">
+              <a href="#" className="hover:text-teal-400 transition-colors">ABOUT</a>
+              <a href="#" className="hover:text-teal-400 transition-colors">INFO</a>
+              <a href="#" className="hover:text-teal-400 transition-colors">FEATURES</a>
+            </div>
+           
+            <button className="px-6 py-2.5 bg-slate-800 hover:bg-slate-700 text-white text-xs font-bold tracking-widest rounded-lg border border-slate-600 transition-all uppercase">
+              CLIENT PORTAL
+            </button>
+          </nav>
+        </div>
+      </header>
+
+
+      {/* Main Content */}
+      <main className="flex-1 w-full max-w-7xl mx-auto px-6 pt-16 pb-24 relative z-10">
+       
+        {/* Typography Hero */}
+        <div className="text-center max-w-5xl mx-auto mb-16">
+          <h2 className="text-5xl md:text-7xl font-black text-white mb-4 leading-[1.1] tracking-tight">
+            Your <span className="italic font-bold text-teal-50 drop-shadow-[0_0_4px_rgba(45,212,191,0.4)]">Unbreakable</span><br />
+            {/* Custom gradient: Teal to Gold, shifting right around "ro" - gold brought in slightly earlier */}
+            <span className="bg-gradient-to-r from-teal-400 via-teal-500 via-[37%] to-yellow-500 to-75% text-transparent bg-clip-text">
+              Digital Stronghold
+            </span>
+          </h2>
+         
+          {/* Fine print subtext */}
+          <p className="text-xs md:text-sm text-slate-500 max-w-2xl mx-auto font-medium tracking-wide">
+            Your privacy is our core value. No spam. No phishing. No trackers — ever.
+          </p>
+        </div>
+
+
+        {/* Two-Column Layout for Demo & Waitlist */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start max-w-5xl mx-auto mb-16">
+         
+          {/* Left Column: Interactive Demo Tile */}
+          <div className="bg-slate-900/60 border border-slate-800 rounded-[2rem] p-8 shadow-2xl relative overflow-hidden backdrop-blur-sm">
+            {isVpnActive && (
+              <div className="absolute inset-0 bg-green-500/5 pointer-events-none animate-pulse"></div>
+            )}
+           
+            <div className="text-center mb-8">
+              <span className="text-[0.65rem] font-bold tracking-[0.2em] text-slate-500 uppercase">
+                UI Demo — Not Functional / Does Not Engage
+              </span>
+            </div>
+
+
+            {/* Massive Toggle Button */}
+            <div className="flex justify-center mb-10">
+              <button
+                onClick={() => setIsVpnActive(!isVpnActive)}
+                className={`relative flex items-center justify-center w-32 h-32 md:w-40 md:h-40 rounded-full transition-all duration-500 focus:outline-none ${
+                  isVpnActive
+                    ? 'bg-green-500 shadow-[0_0_40px_rgba(34,197,94,0.4)] border-4 border-green-400/50 scale-105'
+                    : 'bg-slate-950 shadow-[inset_0_10px_20px_rgba(0,0,0,0.8)] border-4 border-slate-800 hover:border-slate-700'
+                }`}
+              >
+                <Power
+                  className={`w-12 h-12 md:w-16 md:h-16 transition-all duration-500 ${
+                    isVpnActive ? 'text-white drop-shadow-[0_0_8px_rgba(255,255,255,0.8)]' : 'text-slate-600'
+                  }`}
+                />
+              </button>
+            </div>
+
+
+            {/* Select Node Tile */}
+            <div className={`rounded-xl p-4 border transition-colors duration-300 ${isVpnActive ? 'bg-green-950/30 border-green-900/50' : 'bg-slate-950/50 border-slate-800'}`}>
+              {isVpnActive ? (
+                <div className="flex items-center justify-between">
+                  <div>
+                    <div className="text-green-400 font-bold text-sm flex items-center gap-2 mb-1">
+                      <ShieldCheck className="w-4 h-4" /> SECURE CONNECTION
+                    </div>
+                    <div className="text-white text-xs font-mono">NODE 42 — MIAMI, FL [192.168.x.x]</div>
+                  </div>
+                  <div className="w-3 h-3 rounded-full bg-green-500 shadow-[0_0_8px_rgba(34,197,94,0.8)] animate-pulse"></div>
+                </div>
+              ) : (
+                <div className="flex items-center justify-between cursor-pointer group">
+                  <div className="flex items-center gap-3">
+                    <Server className="w-5 h-5 text-slate-500 group-hover:text-teal-500 transition-colors" />
+                    <span className="text-slate-400 text-sm font-medium group-hover:text-slate-300">Select Node Location...</span>
+                  </div>
+                  <ChevronDown className="w-5 h-5 text-slate-600 group-hover:text-teal-500 transition-colors" />
+                </div>
+              )}
+            </div>
+          </div>
+
+
+          {/* Right Column: Waitlist & Info */}
+          <div className="flex flex-col justify-center items-center lg:items-start text-center lg:text-left h-full pt-4 lg:pt-0">
+            <h3 className="text-3xl font-bold text-white mb-6">Secure Your Spot.</h3>
+            <p className="text-slate-400 mb-10 leading-relaxed max-w-lg">
+              We are currently onboarding users in waves to ensure maximum performance and absolute privacy integrity. Join the waitlist to be notified when the next sector opens.
+            </p>
+           
+            {/* Modified inputs: Widened to max-w-2xl, responsive text sizing to fit long placeholders */}
+            <div className="flex flex-col sm:flex-row gap-3 w-full max-w-2xl mx-auto lg:mx-0">
+              <div className="relative flex-1">
+                <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-500" />
+                <input
+                  type="email"
+                  placeholder={placeholderText}
+                  className="w-full bg-slate-900/80 border border-slate-700 text-white pl-11 pr-3 py-5 rounded-xl focus:outline-none focus:border-teal-500 transition-colors text-[0.7rem] sm:text-xs md:text-sm"
+                />
+              </div>
+             
+              {/* Gold Waitlist Button - Taller */}
+              <button className="bg-yellow-600 hover:bg-yellow-500 text-slate-950 font-bold py-5 px-8 rounded-xl shadow-[0_0_15px_rgba(202,138,4,0.2)] hover:shadow-[0_0_20px_rgba(202,138,4,0.4)] transition-all flex items-center justify-center gap-2 group whitespace-nowrap">
+                JOIN WAITLIST
+                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              </button>
+            </div>
+          </div>
+        </div>
+
+
+        {/* Subtle Horizontal Divider */}
+        <div className="w-full max-w-4xl mx-auto h-px bg-gradient-to-r from-transparent via-teal-900/30 to-transparent mb-16"></div>
+
+
+        {/* Three Feature Tiles */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-5xl mx-auto">
+         
+          {/* Tile 1: Teal Theme (Top Left) */}
+          <div className="bg-teal-950/20 border border-teal-900/50 p-8 rounded-[2rem] hover:bg-teal-900/20 transition-colors group">
+            <Activity className="w-8 h-8 text-teal-500 mb-6" />
+            <h4 className="text-xl font-bold text-white mb-3">Core Infrastructure</h4>
+            <p className="text-sm text-slate-400 mb-6">
+              Military-grade encryption running on bare-metal servers. No virtualized environments, zero logging.
+            </p>
+            <button className="text-teal-400 text-sm font-bold flex items-center gap-2 group-hover:text-teal-300">
+              EXPLORE TECH <ArrowRight className="w-4 h-4" />
+            </button>
+          </div>
+
+
+          {/* Tile 2: Navy Theme (Top Right) */}
+          <div className="bg-blue-950/20 border border-blue-900/50 p-8 rounded-[2rem] hover:bg-blue-900/20 transition-colors group">
+            <Lock className="w-8 h-8 text-blue-500 mb-6" />
+            <h4 className="text-xl font-bold text-white mb-3">Absolute Anonymity</h4>
+            <p className="text-sm text-slate-400 mb-6">
+              Our unique node-routing architecture ensures your digital footprint is entirely eradicated from ISP visibility.
+            </p>
+            <button className="text-blue-400 text-sm font-bold flex items-center gap-2 group-hover:text-blue-300">
+              VIEW FEATURES <ArrowRight className="w-4 h-4" />
+            </button>
+          </div>
+
+
+          {/* Tile 3: Gold Theme (Underneath Top Left) */}
+          <div className="bg-yellow-950/10 border border-yellow-900/30 p-8 rounded-[2rem] hover:bg-yellow-900/10 transition-colors group md:col-start-1">
+            <Clock className="w-8 h-8 text-yellow-600 mb-6" />
+            <h4 className="text-xl font-bold text-white mb-3">Development Timeline</h4>
+            <p className="text-sm text-slate-400 mb-6">
+              Track our progress as we forge the next generation of digital privacy tools for our early adopters.
+            </p>
+            {/* Word repetition fixed here */}
+            <button className="text-yellow-600 text-sm font-bold flex items-center gap-2 group-hover:text-yellow-500">
+              OBSERVE ROADMAP <ArrowRight className="w-4 h-4" />
+            </button>
+          </div>
+
+
+        </div>
+      </main>
+
+
+      {/* Footer */}
+      <footer className="w-full border-t border-slate-800/80 bg-[#020617] mt-12 py-12 relative z-20">
+        <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-8">
+         
+          <div className="flex items-center gap-4">
+            {/* SVG bumped up in size ~15%+ */}
+            <StrongholdLogo className="w-14 h-14 opacity-70" />
+            <div>
+              {/* Text scaled down slightly (~5%) */}
+              <span className="text-[0.65rem] text-slate-500 block font-bold tracking-widest mb-0.5">STRONGHOLD VPN</span>
+              <span className="text-[0.55rem] text-slate-600 uppercase tracking-widest">A PCV Hub LLC Property.</span>
+            </div>
+          </div>
+
+
+          <div className="text-[0.65rem] text-slate-500 font-medium tracking-widest uppercase">
+            &copy; PCV Hub LLC 2026. All Rights Reserved.
+          </div>
+
+
+          <div className="flex items-center gap-6 text-xs text-slate-500 font-bold tracking-widest">
+            <a href="#" className="hover:text-teal-500 transition-colors uppercase">Privacy</a>
+            <a href="#" className="hover:text-teal-500 transition-colors uppercase">Terms</a>
+            <a href="#" className="hover:text-teal-500 transition-colors uppercase">PCVHUB.COM</a>
+            <a href="#" className="text-yellow-600/80 hover:text-yellow-500 transition-colors uppercase">Contact Us</a>
+          </div>
+
+
+        </div>
+      </footer>
+
+
+    </div>
+  );
+}
